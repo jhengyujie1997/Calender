@@ -20,7 +20,7 @@ namespace Calendar.Service.Dtos
         /// <summary>
         /// 標題
         /// </summary>
-        public int title { get; set; }
+        public string title { get; set; } = null!;
 
         /// <summary>
         /// 開始時間
@@ -41,30 +41,5 @@ namespace Calendar.Service.Dtos
         /// 文字顏色
         /// </summary>
         public string? textColor { get; set; }
-
-        /// <summary>
-        /// 產生人員
-        /// </summary>
-        public string? CreateUser { get; set; }
-
-        /// <summary>
-        /// 產生日期
-        /// </summary>
-        public DateTime CreateDate { get; set; }
-
-        /// <summary>
-        /// 異動人員
-        /// </summary>
-        public string? LogUser { get; set; }
-
-        /// <summary>
-        /// 異動時間
-        /// </summary>
-        public DateTime LogDate { get; set; }
-
-        /// <summary>
-        /// 異動版本
-        /// </summary>
-        public byte[] LogSN { get; set; } = null!;
     }
 }

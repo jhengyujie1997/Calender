@@ -13,14 +13,16 @@ public partial class CalendarContext : DbContext
         _connectionString = connectionString;
     }
 
-    public CalendarContext(DbContextOptions<CalendarContext> options): base(options)
+    public CalendarContext(DbContextOptions<CalendarContext> options)
+        : base(options)
     {
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(_connectionString);
     }
 
     public virtual DbSet<Calendar> Calendar { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(_connectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,22 +33,6 @@ public partial class CalendarContext : DbContext
             entity.ToTable(tb => tb.HasComment("日歷基本檔"));
 
             entity.Property(e => e.groupId).HasComment("流水號");
-            entity.Property(e => e.CreateDate)
-                .HasComment("產生日期")
-                .HasColumnType("datetime");
-            entity.Property(e => e.CreateUser)
-                .HasMaxLength(10)
-                .HasComment("產生人員");
-            entity.Property(e => e.LogDate)
-                .HasComment("異動時間")
-                .HasColumnType("datetime");
-            entity.Property(e => e.LogSN)
-                .IsRowVersion()
-                .IsConcurrencyToken()
-                .HasComment("異動版本");
-            entity.Property(e => e.LogUser)
-                .HasMaxLength(10)
-                .HasComment("異動人員");
             entity.Property(e => e.color)
                 .HasMaxLength(10)
                 .HasComment("背景顏色");
@@ -59,7 +45,9 @@ public partial class CalendarContext : DbContext
             entity.Property(e => e.textColor)
                 .HasMaxLength(10)
                 .HasComment("文字顏色");
-            entity.Property(e => e.title).HasComment("標題");
+            entity.Property(e => e.title)
+                .HasMaxLength(20)
+                .HasComment("標題");
         });
 
         OnModelCreatingPartial(modelBuilder);

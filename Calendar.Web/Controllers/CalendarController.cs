@@ -28,12 +28,21 @@ namespace Calendar.Web.Controllers
 
         public IActionResult Create()
         {
-            return PartialView("Create");
+            return View("Create");
         }
-
-        public IActionResult Update()
+       
+        public async Task<IActionResult> Update(string groupId)
         {
-            return PartialView("Update");
+            // Convert QueryCalendarModel to QueryCalendarDto
+            var model = new QueryCalendarDto { groupId = Int32.Parse(groupId) };
+            var QueryCalendarDto = this._mapper.Map<QueryCalendarDto>(model);
+
+            var calenderDto = await this._calendarService.GetAsync(QueryCalendarDto);
+
+            // Convert calenderDto to calendarViewModel
+            var calendarViewModel = this._mapper.Map<CalendarViewModel>(calenderDto);
+
+            return View("Update", calendarViewModel);
         }
 
         /// <summary>
@@ -41,7 +50,7 @@ namespace Calendar.Web.Controllers
         /// </summary>
         /// <param></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetListAsync")]
         public async Task<IEnumerable<CalendarViewModel>> GetListAsync()
         {
             var calendarDto = await this._calendarService.GetListAsync();
@@ -76,8 +85,8 @@ namespace Calendar.Web.Controllers
         /// </summary>
         /// <param name="model">Calendar</param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<bool> AddAsync([FromBody] CalendarViewModel model)
+        [HttpPost("AddAsync")]
+        public async Task<bool> AddAsync(CalendarViewModel model)
         {
             // Convert CalendarViewModel to CalendarDto
             var calendarDto = this._mapper.Map<CalendarDto>(model);
@@ -106,7 +115,7 @@ namespace Calendar.Web.Controllers
         /// </summary>
         /// <param name="model">Calendar</param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPost("UpdateAsync")]
         public async Task<bool> UpdateAsync([FromBody] CalendarViewModel model)
         {
             // Convert BlogParameter to BlogQueryDto

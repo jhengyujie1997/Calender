@@ -21,11 +21,6 @@ CREATE TABLE [dbo].[Calendar](
 	[end] [datetime] NULL,						--結束時間	
 	[color] [NVARCHAR](10) NULL,				--背景顏色
 	[textColor] [NVARCHAR](10) NULL,			--文字顏色
-	[CreateUser] [NVARCHAR](10) NULL,			--創建人員
-	[CreateDate] [datetime] NOT NULL,			--創建時間
-	[LogUser] [NVARCHAR](10 ) NULL,				--修改人員
-	[LogDate] [datetime] NOT NULL,				--修改時間
-	[LogSN] [ROWVERSION] NOT NULL,				--異動版本
 	CONSTRAINT [PK_Calendar] PRIMARY KEY CLUSTERED 
 	(		 
 		[groupId] ASC
