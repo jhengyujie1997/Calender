@@ -1,0 +1,8 @@
+Calendar.Service/obj/
+Calendar.Web/bin/
+Calendar.Web/obj/
+.vs/
+Calendar.Common/obj/
+Calendar.Repository/bin/
+Calendar.Repository/obj/
+Calendar.Service/bin/
