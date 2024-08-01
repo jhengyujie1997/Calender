@@ -1,7 +1,25 @@
+using Calendar.Repository.Enities;
+using Calendar.Repository.Implements;
+using Calendar.Repository.Interfaces;
+using Calendar.Service.Implements;
+using Calendar.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddDbContext<DbContext>(
+//    options => options.UseSqlServer(builder.Configuration.GetConnectionString("Calendar"))
+//);
+
+builder.Services.AddSingleton<CalendarContext>(options => new CalendarContext(builder.Configuration.GetConnectionString("Calendar")));
+
+builder.Services.AddScoped<ICalendarService, CalendarService>();
+builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -25,3 +43,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+

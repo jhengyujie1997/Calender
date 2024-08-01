@@ -16,8 +16,8 @@ namespace Calendar.Service.Infrastructure
         /// </summary>
         public ServiceProfile()
         {
-            CreateMap<QueryFooDto, QueryFoo>();
-            CreateMap<Foo, FooDto>();
+            CreateMap<QueryCalendarDto, QueryCalendar>();
+            CreateMap<Repository.Enities.Calendar, CalendarDto>();
         }
     }
 }

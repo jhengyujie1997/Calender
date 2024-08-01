@@ -10,7 +10,8 @@
         events: [
             {
                 title: 'All Day Event',
-                start: '2024-07-01'
+                start: '2024-07-01',
+                end: '2024-07-01'
             },
             {
                 title: 'Long Event',

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Calendar.Repository.Enities;
 using Calendar.Service.Dtos;
 using Calendar.Web.Models;
 
@@ -16,8 +17,8 @@ namespace Calendar.Web.Infrastructure
         /// </summary>
         public ControllerProfile()
         {
-            this.CreateMap<QueryFooParameter, QueryFooDto>();
-            this.CreateMap<FooDto, FooViewModel>();
+            this.CreateMap<QueryCalendarModel, QueryCalendarDto>();
+            this.CreateMap<CalendarDto, CalendarViewModel>();
         }
     }
 }

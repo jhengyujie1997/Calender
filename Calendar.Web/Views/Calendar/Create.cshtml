@@ -1,6 +1,31 @@
-﻿<div class="alert alert-info">
-    <h4 class="alert-heading">Loaded Content</h4>
-    <p>This content was loaded using jQuery.load() from an ASP.NET Core controller.</p>
-    <hr>
-    <p class="mb-0">This content comes from a server-side partial view.</p>
+﻿<div class="container my-5">
+    <h1 class="mb-4">新增會議</h1>
+    <form>
+        <div class="mb-3">
+            <label for="title" class="form-label">標題</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="start" class="form-label">開始時間</label>
+            <input type="datetime-local" class="form-control" id="start" name="start">
+        </div>
+
+        <div class="mb-3">
+            <label for="end" class="form-label">結束時間</label>
+            <input type="datetime-local" class="form-control" id="end" name="end">
+        </div>
+
+        <div class="mb-3">
+            <label for="color" class="form-label">背景顏色</label>
+            <input type="color" class="form-control form-control-color" id="color" name="color" title="選擇背景顏色">
+        </div>
+
+        <div class="mb-3">
+            <label for="textColor" class="form-label">文字顏色</label>
+            <input type="color" class="form-control form-control-color" id="textColor" name="textColor" title="選擇文字顏色">
+        </div>
+
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
 </div>
