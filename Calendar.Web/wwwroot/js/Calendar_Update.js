@@ -1,6 +1,6 @@
-﻿let form = $("#Calendar_Update");
+﻿let calendar_Update = new $("#Calendar_Update");
 
-form.find("button[name='save']").on("click", function () {
+calendar_Update.find("button[name='save']").on("click", function () {
 
     let Data = {
         groupId: $("#groupId").val(),
@@ -17,7 +17,18 @@ form.find("button[name='save']").on("click", function () {
         contentType: "application/json",
         data: JSON.stringify(Data),
         success: function (result) {
-            $("#result").html(result);
+            if (result) {
+                $("#LargeModal").modal("hide");
+                if (window.calendar) {
+                    window.calendar.refetchEvents();
+                } else {
+                    console.error("Calendar instance not found!");
+                }
+                alert("更新成功！");
+            } else {
+                // 顯示失敗通知
+                alert("更新失敗，請檢查資料是否正確。");
+            }
         },
         error: function (xhr, status, error) {
             console.error("Error: " + error);

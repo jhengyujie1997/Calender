@@ -1,8 +1,7 @@
+using Calendar.Application.Implements;
+using Calendar.Common.Interfaces;
 using Calendar.Repository.Enities;
 using Calendar.Repository.Implements;
-using Calendar.Repository.Interfaces;
-using Calendar.Service.Implements;
-using Calendar.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Serialization;
@@ -18,9 +17,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<CalendarContext>(options => new CalendarContext(builder.Configuration.GetConnectionString("Calendar")));
 
-builder.Services.AddScoped<ICalendarService, CalendarService>();
-builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<CalendarUseCase>();
+builder.Services.AddScoped<ICalendarInterface, CalendarRepository>();
+builder.Services.AddScoped<CalendarRepository>();
 
 
 var app = builder.Build();

@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     let calendarEl = document.getElementById('calendar'); 
 
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             start: 'dayGridMonth,timeGridWeek,timeGridDay',
             center: 'title',
@@ -14,12 +14,13 @@
         locale: 'en',
         editable: true,
         eventClick: function (info) {
-            alert('Event: ' + info.event.title);
-            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            alert('View: ' + info.view.type);
+            //alert('Event: ' + info.event.title);
+            //alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+            //alert('View: ' + info.view.type);
 
             // change the border color just for fun
             info.el.style.borderColor = 'red';
+            $("#LargeModal").find('.modal-body').off(); // Removes any previous event listeners
             $("#LargeModal").find('.modal-body').html("");
             $("#LargeModal").find('.modal-body').load('/Calendar/Update', { "groupId": info.event.groupId });
             $("#LargeModal").modal("show");
@@ -38,6 +39,13 @@
                 info.revert();
             }
         }
+    });
+
+    $('#LargeModal').on('hide.bs.modal', function () {
+        console.log("close modal");
+        // Clear the modal body content when modal is closed
+        $(this).find('.modal-body').html("");
+        $(this).find('button[name="save"]').off("click"); // Optionally, you can also remove event listeners from the save button if you need
     });
     calendar.render();
 

@@ -1,26 +1,15 @@
-﻿using AutoMapper;
-using Calendar.Service.Implements;
-using Calendar.Service.Dtos;
-using Calendar.Service.Interfaces;
+﻿using Calendar.Application.Implements;
+using Calendar.Application.Model;
+using Calendar.Common.Dtos;
 using Calendar.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
+using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace Calendar.Web.Controllers
 {
-    public class CalendarController : Controller
+    public class CalendarController(ILogger<CalendarController> logger, CalendarUseCase calendarUseCase) : Controller
     {
-        private readonly ILogger<CalendarController> _logger;
-        private readonly ICalendarService _calendarService;
-        private readonly IMapper _mapper;
-
-        public CalendarController(ILogger<CalendarController> logger, ICalendarService calendarService, IMapper mapper)
-        {
-            _logger = logger;
-            _calendarService = calendarService;
-            _mapper = mapper;
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -30,18 +19,19 @@ namespace Calendar.Web.Controllers
         {
             return View("Create");
         }
-       
-        public async Task<IActionResult> Update(string groupId)
+
+        public async Task<IActionResult> Update(int groupId)
         {
             // Convert QueryCalendarModel to QueryCalendarDto
-            var model = new QueryCalendarDto { groupId = Int32.Parse(groupId) };
-            var QueryCalendarDto = this._mapper.Map<QueryCalendarDto>(model);
-
-            var calenderDto = await this._calendarService.GetAsync(QueryCalendarDto);
-
-            // Convert calenderDto to calendarViewModel
-            var calendarViewModel = this._mapper.Map<CalendarViewModel>(calenderDto);
-
+            var calenderDto = await calendarUseCase.GetAsync(groupId);
+            var calendarViewModel = new CalendarViewModel {
+                groupId = calenderDto.groupId,
+                title = calenderDto.title,
+                start = calenderDto.start,
+                end = calenderDto.end,
+                color = calenderDto.color,
+                textColor = calenderDto.textColor,
+            };
             return View("Update", calendarViewModel);
         }
 
@@ -51,33 +41,22 @@ namespace Calendar.Web.Controllers
         /// <param></param>
         /// <returns></returns>
         [HttpGet("GetListAsync")]
-        public async Task<IEnumerable<CalendarViewModel>> GetListAsync()
+        public async Task<IActionResult> GetListAsync()
         {
-            var calendarDto = await this._calendarService.GetListAsync();
-
-            // Convert FooDto to FooViewModel
-            var calendarViewModels = this._mapper.Map<IEnumerable<CalendarViewModel>>(calendarDto);
-
-            return calendarViewModels;
+            var calendarDto = (await calendarUseCase.GetListAsync()).ToList();
+            return Ok(calendarDto);
         }
 
         /// <summary>
         /// 取得 Calendar
         /// </summary>
-        /// <param name="model">查詢參數</param>
+        /// <param name="groupId">查詢參數</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<CalendarViewModel> GetAsync([FromQuery] QueryCalendarModel model)
+        public async Task<IActionResult> GetAsync([FromQuery] int groupId)
         {
-            // Convert QueryCalendarModel to QueryCalendarDto
-            var QueryCalendarDto = this._mapper.Map<QueryCalendarDto>(model);
-
-            var calenderDto = await this._calendarService.GetAsync(QueryCalendarDto);
-
-            // Convert calenderDto to calendarViewModel
-            var calendarViewModel = this._mapper.Map<CalendarViewModel>(calenderDto);
-
-            return calendarViewModel;
+            var calenderDto = await calendarUseCase.GetAsync(groupId);
+            return View("Update", calenderDto);
         }
 
         /// <summary>
@@ -86,14 +65,19 @@ namespace Calendar.Web.Controllers
         /// <param name="model">Calendar</param>
         /// <returns></returns>
         [HttpPost("AddAsync")]
-        public async Task<bool> AddAsync(CalendarViewModel model)
+        public async Task<IActionResult> AddAsync([FromBody] CalendarViewModel model)
         {
-            // Convert CalendarViewModel to CalendarDto
-            var calendarDto = this._mapper.Map<CalendarDto>(model);
-
-            var status = await this._calendarService.AddAsync(calendarDto);
-
-            return status;
+            var calendarInput = new CalendarInput
+            {
+                groupId = model.groupId,
+                title = model.title,
+                start = model.start,
+                end = model.end,
+                color = model.color,
+                textColor = model.textColor,
+            };
+            var status = await calendarUseCase.AddAsync(calendarInput);
+            return View("Index");
         }
 
         /// <summary>
@@ -105,8 +89,7 @@ namespace Calendar.Web.Controllers
         [Route("/{groupId}")]
         public async Task<bool> RemoveAsync(int groupId)
         {
-            var status = await this._calendarService.RemoveAsync(groupId);
-
+            var status = await calendarUseCase.RemoveAsync(groupId);
             return status;
         }
 
@@ -116,14 +99,19 @@ namespace Calendar.Web.Controllers
         /// <param name="model">Calendar</param>
         /// <returns></returns>
         [HttpPost("UpdateAsync")]
-        public async Task<bool> UpdateAsync([FromBody] CalendarViewModel model)
+        public async Task<IActionResult> UpdateAsync([FromBody] CalendarViewModel model)
         {
-            // Convert BlogParameter to BlogQueryDto
-            var calendarDto = this._mapper.Map<CalendarDto>(model);
-
-            var status = await this._calendarService.UpdateAsync(calendarDto);
-
-            return status;
+            var calendarInput = new CalendarInput
+            {
+                groupId = model.groupId,
+                title = model.title,
+                start = model.start,
+                end = model.end,
+                color = model.color,
+                textColor = model.textColor,
+            };
+            var status = await calendarUseCase.UpdateAsync(calendarInput);
+            return Ok(status);
         }
     }
 }

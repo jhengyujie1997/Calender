@@ -15,8 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calendar.Repository\Calendar.Repository.csproj" />
-    <ProjectReference Include="..\Calendar.Service\Calendar.Service.csproj" />
+    <ProjectReference Include="..\Calendar.Service\Calendar.Application.csproj" />
   </ItemGroup>
 
 </Project>

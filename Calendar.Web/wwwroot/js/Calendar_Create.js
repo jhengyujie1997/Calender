@@ -1,6 +1,6 @@
-﻿let form = $("#Calendar_Create");
+﻿let Calendar_Create = $("#Calendar_Create");
 
-form.find("button[name='save']").on("click", function () {
+Calendar_Create.find("button[name='save']").on("click", function () {
 
     let Data = {
         groupId: $("#groupId").val(),

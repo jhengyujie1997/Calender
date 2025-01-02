@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Common", "Calendar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Web", "Calendar.Web\Calendar.Web.csproj", "{E3300B88-89C8-49DA-97C3-9A32AFEA171A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Service", "Calendar.Service\Calendar.Service.csproj", "{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Application", "Calendar.Service\Calendar.Application.csproj", "{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Repository", "Calendar.Repository\Calendar.Repository.csproj", "{871CAD3F-6AC7-493E-B725-408941E73725}"
 EndProject
