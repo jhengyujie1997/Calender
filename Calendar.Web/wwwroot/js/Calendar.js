@@ -43,8 +43,10 @@
 
     $('#LargeModal').on('hide.bs.modal', function () {
         console.log("close modal");
+        window.calendar.refetchEvents();
         // Clear the modal body content when modal is closed
         $(this).find('.modal-body').html("");
+        $(this).find(".modal-body").empty();
         $(this).find('button[name="save"]').off("click"); // Optionally, you can also remove event listeners from the save button if you need
     });
     calendar.render();

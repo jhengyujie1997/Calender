@@ -20,15 +20,15 @@ namespace Calendar.Repository.Implements
         /// <returns></returns>
         public async Task<IQueryable<CalendarDto>> GetListAsync()
         {
-            var calendarDto = context.Calendar
+            var calendarDto = context.Calendars
                 .Select(x => new CalendarDto
                 {
-                    groupId = x.groupId,
-                    title = x.title,
-                    start = x.start,
-                    end = x.end,
-                    color = x.color,
-                    textColor = x.textColor,
+                    groupId = x.GroupId,
+                    title = x.Title,
+                    start = x.Start,
+                    end = x.End,
+                    color = x.Color,
+                    textColor = x.TextColor,
                 });
             return calendarDto;
         }
@@ -41,16 +41,16 @@ namespace Calendar.Repository.Implements
         public async Task<CalendarDto> GetAsync(int groupId)
         {
             // 資料庫實作
-            var calendarDto = await (from cal in context.Calendar
-                                     where cal.groupId == groupId
+            var calendarDto = await (from cal in context.Calendars
+                                     where cal.GroupId == groupId
                                      select new CalendarDto
                                      {
-                                         groupId = cal.groupId,
-                                         title = cal.title,
-                                         start = cal.start,
-                                         end = cal.end,
-                                         color = cal.color,
-                                         textColor = cal.textColor,
+                                         groupId = cal.GroupId,
+                                         title = cal.Title,
+                                         start = cal.Start,
+                                         end = cal.End,
+                                         color = cal.Color,
+                                         textColor = cal.TextColor,
                                      }).FirstOrDefaultAsync();
 
             return calendarDto;
@@ -65,14 +65,14 @@ namespace Calendar.Repository.Implements
         {
             var calendarEntities = new Enities.Calendar
             {
-                groupId = calendar.groupId,
-                title = calendar.title,
-                start = calendar.start,
-                end = calendar.end,
-                color = calendar.color,
-                textColor = calendar.textColor,
+                GroupId = calendar.groupId,
+                Title = calendar.title,
+                Start = calendar.start,
+                End = calendar.end,
+                Color = calendar.color,
+                TextColor = calendar.textColor,
             };
-            context.Calendar.Add(calendarEntities);
+            context.Calendars.Add(calendarEntities);
             var count = await context.SaveChangesAsync();
 
             return count > 0;
@@ -85,8 +85,8 @@ namespace Calendar.Repository.Implements
         /// <returns></returns>
         public async Task<bool> RemoveAsync(int groupId)
         {
-            var calendar = await context.Calendar.FindAsync(groupId);
-            context.Calendar.Remove(calendar);
+            var calendar = await context.Calendars.FindAsync(groupId);
+            context.Calendars.Remove(calendar);
             var count = await context.SaveChangesAsync();
 
             return count > 0;
@@ -99,21 +99,21 @@ namespace Calendar.Repository.Implements
         /// <returns></returns>
         public async Task<bool> UpdateAsync(CalendarDto calendar)
         {
-            var existingCalendar = await context.Calendar
-                .FirstOrDefaultAsync(c => c.groupId == calendar.groupId);
+            var existingCalendar = await context.Calendars
+                .FirstOrDefaultAsync(c => c.GroupId == calendar.groupId);
 
             if (existingCalendar == null)
             {
                 return false;
             }
 
-            existingCalendar.title = calendar.title;
-            existingCalendar.start = calendar.start;
-            existingCalendar.end = calendar.end;
-            existingCalendar.color = calendar.color;
-            existingCalendar.textColor = calendar.textColor;
+            existingCalendar.Title = calendar.title;
+            existingCalendar.Start = calendar.start;
+            existingCalendar.End = calendar.end;
+            existingCalendar.Color = calendar.color;
+            existingCalendar.TextColor = calendar.textColor;
 
-            context.Calendar.Update(existingCalendar);
+            context.Calendars.Update(existingCalendar);
             var count = await context.SaveChangesAsync();
             return count > 0;
         }

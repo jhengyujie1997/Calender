@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Common", "Calendar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Web", "Calendar.Web\Calendar.Web.csproj", "{E3300B88-89C8-49DA-97C3-9A32AFEA171A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Application", "Calendar.Service\Calendar.Application.csproj", "{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Repository", "Calendar.Repository\Calendar.Repository.csproj", "{871CAD3F-6AC7-493E-B725-408941E73725}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Application", "Calendar.Application\Calendar.Application.csproj", "{1C892C69-9F56-4837-81C0-CE323AB25A69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{E3300B88-89C8-49DA-97C3-9A32AFEA171A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3300B88-89C8-49DA-97C3-9A32AFEA171A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3300B88-89C8-49DA-97C3-9A32AFEA171A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CBBFEC1-4984-4398-9DF4-7A0F3C7F497B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{871CAD3F-6AC7-493E-B725-408941E73725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{871CAD3F-6AC7-493E-B725-408941E73725}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871CAD3F-6AC7-493E-B725-408941E73725}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871CAD3F-6AC7-493E-B725-408941E73725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C892C69-9F56-4837-81C0-CE323AB25A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C892C69-9F56-4837-81C0-CE323AB25A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C892C69-9F56-4837-81C0-CE323AB25A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C892C69-9F56-4837-81C0-CE323AB25A69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

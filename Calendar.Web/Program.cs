@@ -4,6 +4,7 @@ using Calendar.Repository.Enities;
 using Calendar.Repository.Implements;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,8 @@ builder.Services.AddControllersWithViews();
 //    options => options.UseSqlServer(builder.Configuration.GetConnectionString("Calendar"))
 //);
 
-builder.Services.AddSingleton<CalendarContext>(options => new CalendarContext(builder.Configuration.GetConnectionString("Calendar")));
+builder.Services.AddDbContext<CalendarContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Calendar")));
 
 builder.Services.AddScoped<CalendarUseCase>();
 builder.Services.AddScoped<ICalendarInterface, CalendarRepository>();
